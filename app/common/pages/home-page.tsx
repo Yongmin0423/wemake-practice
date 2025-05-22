@@ -32,6 +32,7 @@ export default function HomePage() {
         </div>
           {Array.from({ length: 11 }).map((_, index) => (
           <ProductCard
+                key={index}
                 productId={index.toString()}
                 productName={`Product Name ${index}`}
                 productDescription="Product Description"
@@ -55,6 +56,7 @@ export default function HomePage() {
         </div>
           {Array.from({ length: 11 }).map((_, index) => (
           <PostCard
+            key={index}
             postId={index.toString()}
             title={`Discussion Title ${index}`}
             author="Jane Doe"
@@ -77,6 +79,7 @@ export default function HomePage() {
         </div>
         {Array.from({ length: 5 }).map((_, index) => (
           <IdeaCard
+            key={index}
             ideaId={index.toString()}
             title="A startup that create an AI-powered generated personal trainer, delivering customized fitness recommendations and tracking of progress using a mobile app to track workouts and progress as well as a website to manage the business."
             views={100}
