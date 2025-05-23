@@ -18,12 +18,9 @@ export default function CreateReviewDialog() {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>
-          What do you think of this product?
-        </DialogTitle>
+        <DialogTitle>What do you think of this product?</DialogTitle>
         <DialogDescription>
-          Share your thoughts and experiences with this
-          product.
+          Share your thoughts and experiences with this product.
         </DialogDescription>
       </DialogHeader>
       <Form className="space-y-10">
@@ -38,7 +35,7 @@ export default function CreateReviewDialog() {
             {[1, 2, 3, 4, 5].map((star) => (
               <label
                 key={star}
-                className="relative"
+                className="relative cursor-pointer"
                 onMouseEnter={() => setHoveredStar(star)}
                 onMouseLeave={() => setHoveredStar(0)}
               >

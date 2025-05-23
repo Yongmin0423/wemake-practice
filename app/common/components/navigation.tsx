@@ -1,127 +1,175 @@
-import { Link } from "react-router";
-import { Separator } from "./ui/separator";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuLink, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger } from "./ui/navigation-menu";
-import { cn } from "../../lib/utils";
-import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
-import { Button } from "./ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { BarChart3Icon, BellIcon, LogOutIcon, MessageCircleIcon, SettingsIcon, UserIcon } from "lucide-react";
-
+import { Link } from 'react-router';
+import { Separator } from './ui/separator';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+} from './ui/navigation-menu';
+import { cn } from '../../lib/utils';
+import { navigationMenuTriggerStyle } from './ui/navigation-menu';
+import { Button } from './ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import {
+  BarChart3Icon,
+  BellIcon,
+  LogOutIcon,
+  MessageCircleIcon,
+  SettingsIcon,
+  UserIcon,
+} from 'lucide-react';
 
 const menus = [
-    {
-        name: "Products",
-        to: "/products",
-        items: [{
-            name: "Leaderboards",
-            description: "See the top performers in your community",
-            to: "/products/leaderboards",    
-        }, {
-            name: "Categories",
-            description: "Explore different categories",
-            to: "/products/categories",
-            }, {
-                name: "Search",
-                description: "Search for products",
-                to: "/products/search",
-            }, {
-                name: "Submit a Product",
-                description: "Submit a new product",
-                to: "/products/submit",
-            },
-            {
-                name: "Promote a Product",
-                description: "Promote a product",
-                to: "/products/promote",
-            }
-        ]
-    }, {
-        name: "Jobs",
-        to: "/jobs",
-        items: [{
-            name: "Full-Time Jobs",
-            description: "Find a full-time remote job",
-            to: "/jobs?type=full-time",
-        }, {
-            name: "Freelance Jobs",
-            description: "Find a freelance job",
-            to: "/jobs?type=freelance",
-        }, {
-            name: "Part-Time Jobs",
-            description: "Find a part-time remote job",
-            to: "/jobs?type=part-time",
-        }, {
-            name: "Internship Jobs",
-            description: "Find an internship job",
-            to: "/jobs?type=internship",
-            }, {
-            name:"Submit a Job",
-            description: "Submit a new job",
-            to: "/jobs/submit",
-            }
-        ]
-    },{
-    name: "Community",
-    to: "/community",
+  {
+    name: 'Products',
+    to: '/products',
     items: [
       {
-        name: "All Posts",
-        description: "See all posts in our community",
-        to: "/community",
+        name: 'Leaderboards',
+        description: 'See the top performers in your community',
+        to: '/products/leaderboards',
       },
       {
-        name: "Top Posts",
-        description: "See the top posts in our community",
-        to: "/community?sort=top",
+        name: 'Categories',
+        description: 'Explore different categories',
+        to: '/products/categories',
       },
       {
-        name: "New Posts",
-        description: "See the new posts in our community",
-        to: "/community?sort=new",
+        name: 'Search',
+        description: 'Search for products',
+        to: '/products/search',
       },
       {
-        name: "Create a Post",
-        description: "Create a post in our community",
-        to: "/community/create",
+        name: 'Post a Product',
+        description: 'Post a new product',
+        to: '/products/submit',
+      },
+      {
+        name: 'Promote a Product',
+        description: 'Promote a product',
+        to: '/products/promote',
       },
     ],
   },
   {
-    name: "IdeasGPT",
-    to: "/ideas",
-  },
-  {
-    name: "Teams",
-    to: "/teams",
+    name: 'Jobs',
+    to: '/jobs',
     items: [
       {
-        name: "All Teams",
-        description: "See all teams in our community",
-        to: "/teams",
+        name: 'Full-Time Jobs',
+        description: 'Find a full-time remote job',
+        to: '/jobs?type=full-time',
       },
       {
-        name: "Create a Team",
-        description: "Create a team in our community",
-        to: "/teams/create",
+        name: 'Freelance Jobs',
+        description: 'Find a freelance job',
+        to: '/jobs?type=freelance',
+      },
+      {
+        name: 'Part-Time Jobs',
+        description: 'Find a part-time remote job',
+        to: '/jobs?type=part-time',
+      },
+      {
+        name: 'Internship Jobs',
+        description: 'Find an internship job',
+        to: '/jobs?type=internship',
+      },
+      {
+        name: 'Submit a Job',
+        description: 'Submit a new job',
+        to: '/jobs/submit',
       },
     ],
   },
-]
+  {
+    name: 'Community',
+    to: '/community',
+    items: [
+      {
+        name: 'All Posts',
+        description: 'See all posts in our community',
+        to: '/community',
+      },
+      {
+        name: 'Top Posts',
+        description: 'See the top posts in our community',
+        to: '/community?sort=top',
+      },
+      {
+        name: 'New Posts',
+        description: 'See the new posts in our community',
+        to: '/community?sort=new',
+      },
+      {
+        name: 'Create a Post',
+        description: 'Create a post in our community',
+        to: '/community/create',
+      },
+    ],
+  },
+  {
+    name: 'IdeasGPT',
+    to: '/ideas',
+  },
+  {
+    name: 'Teams',
+    to: '/teams',
+    items: [
+      {
+        name: 'All Teams',
+        description: 'See all teams in our community',
+        to: '/teams',
+      },
+      {
+        name: 'Create a Team',
+        description: 'Create a team in our community',
+        to: '/teams/create',
+      },
+    ],
+  },
+];
 
-export default function Navigation({isLoggedIn, hasNotifications, hasMessages}: {isLoggedIn: boolean, hasNotifications: boolean, hasMessages: boolean}) { 
-    return (
-        <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50  bg-background/50">
-            <div className="flex items-center">
-                <Link to="/" className="font-bold tracking-tight text-lg">wemake</Link>
-                <div className="h-6">
-                    <Separator orientation="vertical" className="mx-4"/>
-                </div>  
-                <NavigationMenu>
-                    <NavigationMenuList>
-                            { menus.map((menu) => (
-                                <NavigationMenuItem key={menu.name}>
-                                       {menu.items ? (
+export default function Navigation({
+  isLoggedIn,
+  hasNotifications,
+  hasMessages,
+}: {
+  isLoggedIn: boolean;
+  hasNotifications: boolean;
+  hasMessages: boolean;
+}) {
+  return (
+    <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50  bg-background/50">
+      <div className="flex items-center">
+        <Link
+          to="/"
+          className="font-bold tracking-tight text-lg"
+        >
+          wemake
+        </Link>
+        <div className="h-6">
+          <Separator
+            orientation="vertical"
+            className="mx-4"
+          />
+        </div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            {menus.map((menu) => (
+              <NavigationMenuItem key={menu.name}>
+                {menu.items ? (
                   <>
                     <Link to={menu.to}>
                       <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
@@ -132,11 +180,11 @@ export default function Navigation({isLoggedIn, hasNotifications, hasMessages}: 
                           <NavigationMenuItem
                             key={item.name}
                             className={cn([
-                              "select-none rounded-md transition-colors focus:bg-accent  hover:bg-accent",
-                              item.to === "/products/promote" &&
-                                "col-span-2 bg-primary/10 hover:bg-primary/20 focus:bg-primary/20",
-                              item.to === "/jobs/submit" &&
-                                "col-span-2 bg-primary/10 hover:bg-primary/20 focus:bg-primary/20",
+                              'select-none rounded-md transition-colors focus:bg-accent  hover:bg-accent',
+                              item.to === '/products/promote' &&
+                                'col-span-2 bg-primary/10 hover:bg-primary/20 focus:bg-primary/20',
+                              item.to === '/jobs/submit' &&
+                                'col-span-2 bg-primary/10 hover:bg-primary/20 focus:bg-primary/20',
                             ])}
                           >
                             <NavigationMenuLink asChild>
@@ -158,18 +206,26 @@ export default function Navigation({isLoggedIn, hasNotifications, hasMessages}: 
                     </NavigationMenuContent>
                   </>
                 ) : (
-                  <Link className={navigationMenuTriggerStyle()} to={menu.to}>
+                  <Link
+                    className={navigationMenuTriggerStyle()}
+                    to={menu.to}
+                  >
                     {menu.name}
                   </Link>
                 )}
-            </NavigationMenuItem>
-                ))}      
-            </NavigationMenuList>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
         </NavigationMenu>
-            </div>
-              {isLoggedIn ? (
+      </div>
+      {isLoggedIn ? (
         <div className="flex items-center gap-4">
-          <Button size="icon" variant="ghost" asChild className="relative">
+          <Button
+            size="icon"
+            variant="ghost"
+            asChild
+            className="relative"
+          >
             <Link to="/my/notifications">
               <BellIcon className="size-4" />
               {hasNotifications && (
@@ -177,7 +233,12 @@ export default function Navigation({isLoggedIn, hasNotifications, hasMessages}: 
               )}
             </Link>
           </Button>
-          <Button size="icon" variant="ghost" asChild className="relative">
+          <Button
+            size="icon"
+            variant="ghost"
+            asChild
+            className="relative"
+          >
             <Link to="/my/messages">
               <MessageCircleIcon className="size-4" />
               {hasMessages && (
@@ -199,19 +260,28 @@ export default function Navigation({isLoggedIn, hasNotifications, hasMessages}: 
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem asChild className="cursor-pointer">
+                <DropdownMenuItem
+                  asChild
+                  className="cursor-pointer"
+                >
                   <Link to="/my/dashboard">
                     <BarChart3Icon className="size-4 mr-2" />
                     Dashboard
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer">
+                <DropdownMenuItem
+                  asChild
+                  className="cursor-pointer"
+                >
                   <Link to="/my/profile">
                     <UserIcon className="size-4 mr-2" />
                     Profile
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer">
+                <DropdownMenuItem
+                  asChild
+                  className="cursor-pointer"
+                >
                   <Link to="/my/settings">
                     <SettingsIcon className="size-4 mr-2" />
                     Settings
@@ -219,7 +289,10 @@ export default function Navigation({isLoggedIn, hasNotifications, hasMessages}: 
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild className="cursor-pointer">
+              <DropdownMenuItem
+                asChild
+                className="cursor-pointer"
+              >
                 <Link to="/auth/logout">
                   <LogOutIcon className="size-4 mr-2" />
                   Logout
@@ -230,7 +303,10 @@ export default function Navigation({isLoggedIn, hasNotifications, hasMessages}: 
         </div>
       ) : (
         <div className="flex items-center gap-4">
-          <Button asChild variant="secondary">
+          <Button
+            asChild
+            variant="secondary"
+          >
             <Link to="/auth/login">Login</Link>
           </Button>
           <Button asChild>
