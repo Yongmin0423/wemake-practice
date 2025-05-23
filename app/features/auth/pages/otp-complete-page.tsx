@@ -1,30 +1,49 @@
-export default function OtpCompletePage() {
+import { Form } from 'react-router';
+import InputPair from '~/common/components/input-pair';
+import { Button } from '~/common/components/ui/button';
+import type { Route } from './+types/otp-complete-page';
+
+export const meta: Route.MetaFunction = () => {
+  return [{ title: 'Verify OTP | wemake' }];
+};
+
+export default function OtpPage() {
   return (
-    <div className="bg-white py-8 px-6 shadow rounded-lg">
-      <h2 className="text-center text-2xl font-bold text-gray-900 mb-6">
-        Enter OTP
-      </h2>
-      <form className="space-y-6">
-        <div>
-          <label htmlFor="otp" className="block text-sm font-medium text-gray-700">
-            One-time Password
-          </label>
-          <input
-            type="text"
-            id="otp"
-            name="otp"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+    <div className="flex flex-col relative items-center justify-center h-full">
+      <div className="flex items-center flex-col justify-center w-full max-w-md gap-10">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold">Confirm OTP</h1>
+          <p className="text-sm text-muted-foreground">
+            Enter the OTP code sent to your email address.
+          </p>
+        </div>
+        <Form className="w-full space-y-4">
+          <InputPair
+            label="Email"
+            description="Enter your email address"
+            name="email"
+            id="email"
+            required
+            type="email"
+            placeholder="i.e wemake@example.com"
           />
-        </div>
-        <div>
-          <button
+          <InputPair
+            label="OTP"
+            description="Enter the OTP code sent to your email address"
+            name="otp"
+            id="otp"
+            required
+            type="number"
+            placeholder="i.e 1234"
+          />
+          <Button
+            className="w-full"
             type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Verify
-          </button>
-        </div>
-      </form>
+            Log in
+          </Button>
+        </Form>
+      </div>
     </div>
   );
 }
