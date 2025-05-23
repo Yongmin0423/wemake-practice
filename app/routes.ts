@@ -35,41 +35,19 @@ export default [
     ]),
     ...prefix('categories', [
       index('features/products/pages/categories-page.tsx'),
-      route(
-        '/:category',
-        'features/products/pages/category-page.tsx'
-      ),
+      route('/:category', 'features/products/pages/category-page.tsx'),
     ]),
-    route(
-      '/search',
-      'features/products/pages/search-page.tsx'
-    ),
-    route(
-      '/submit',
-      'features/products/pages/submit-page.tsx'
-    ),
-    route(
-      '/promote',
-      'features/products/pages/promote-page.tsx'
-    ),
+    route('/search', 'features/products/pages/search-page.tsx'),
+    route('/submit', 'features/products/pages/submit-page.tsx'),
+    route('/promote', 'features/products/pages/promote-page.tsx'),
     ...prefix('/:productId', [
-      index(
-        'features/products/pages/product-redirect-page.tsx'
-      ),
-      layout(
-        'features/products/layouts/product-overview-layout.tsx',
-        [
-          route(
-            '/overview',
-            'features/products/pages/product-overview-page.tsx'
-          ),
-          ...prefix('/reviews', [
-            index(
-              'features/products/pages/product-reviews-page.tsx'
-            ),
-          ]),
-        ]
-      ),
+      index('features/products/pages/product-redirect-page.tsx'),
+      layout('features/products/layouts/product-overview-layout.tsx', [
+        route('/overview', 'features/products/pages/product-overview-page.tsx'),
+        ...prefix('/reviews', [
+          index('features/products/pages/product-reviews-page.tsx'),
+        ]),
+      ]),
     ]),
   ]),
   ...prefix('/ideas', [
@@ -79,9 +57,20 @@ export default [
   ...prefix('/jobs', [
     index('features/jobs/pages/jobs-page.tsx'),
     route('/:jobId', 'features/jobs/pages/job-page.tsx'),
-    route(
-      '/submit',
-      'features/jobs/pages/submit-job-page.tsx'
-    ),
+    route('/submit', 'features/jobs/pages/submit-job-page.tsx'),
+  ]),
+  ...prefix('/auth', [
+    layout('features/auth/layouts/auth-layout.tsx', [
+      route('/login', 'features/auth/pages/login-page.tsx'),
+      route('/join', 'features/auth/pages/join-page.tsx'),
+      ...prefix('/otp', [
+        route('/start', 'features/auth/pages/otp-start-page.tsx'),
+        route('/complete', 'features/auth/pages/otp-complete-page.tsx'),
+      ]),
+      ...prefix('/social/:provider', [
+        route('/start', 'features/auth/pages/social-start-page.tsx'),
+        route('/complete', 'features/auth/pages/social-complete-page.tsx'),
+      ]),
+    ]),
   ]),
 ] satisfies RouteConfig;
