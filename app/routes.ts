@@ -72,9 +72,16 @@ export default [
       ),
     ]),
   ]),
-  ...prefix('/idea', [
-    index("feature/ideas/pages/ideas-page.tsx"),
-    route("/:ideaId","feature/ideas/pages/idea-page.tsx"),
-    
-  ])
+  ...prefix('/ideas', [
+    index('features/ideas/pages/ideas-page.tsx'),
+    route('/:ideaId', 'features/ideas/pages/idea-page.tsx'),
+  ]),
+  ...prefix('/jobs', [
+    index('features/jobs/pages/jobs-page.tsx'),
+    route('/:jobId', 'features/jobs/pages/job-page.tsx'),
+    route(
+      '/submit',
+      'features/jobs/pages/submit-job-page.tsx'
+    ),
+  ]),
 ] satisfies RouteConfig;
