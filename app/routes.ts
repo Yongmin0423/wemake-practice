@@ -73,4 +73,14 @@ export default [
       ]),
     ]),
   ]),
+  ...prefix('/community', [
+    index('features/community/pages/community-page.tsx'),
+    route('/:postId', 'features/community/pages/post-page.tsx'),
+    route('/submit', 'features/community/pages/submit-post-page.tsx'),
+  ]),
+  ...prefix('/team', [
+    index('features/team/pages/team-page.tsx'),
+    route('/:teamId', 'features/team/pages/team-page.tsx'),
+    route('/submit', 'features/team/pages/submit-team-page.tsx'),
+  ]),
 ] satisfies RouteConfig;
