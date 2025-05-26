@@ -1,10 +1,7 @@
 import { StarIcon } from 'lucide-react';
 import { ChevronUpIcon } from 'lucide-react';
 import { Link, NavLink, Outlet } from 'react-router';
-import {
-  Button,
-  buttonVariants,
-} from '~/common/components/ui/button';
+import { Button, buttonVariants } from '~/common/components/ui/button';
 import { cn } from '~/lib/utils';
 
 export default function ProductOverviewLayout() {
@@ -14,12 +11,8 @@ export default function ProductOverviewLayout() {
         <div className="flex gap-10">
           <div className="size-40 rounded-xl shadow-xl bg-primary/50"></div>
           <div>
-            <h1 className="text-5xl font-bold">
-              Product Name
-            </h1>
-            <p className=" text-2xl font-light">
-              Product description
-            </p>
+            <h1 className="text-5xl font-bold">Product Name</h1>
+            <p className=" text-2xl font-light">Product description</p>
             <div className="mt-5 flex items-center gap-2">
               <div className="flex text-yellow-400">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -29,9 +22,7 @@ export default function ProductOverviewLayout() {
                   />
                 ))}
               </div>
-              <span className="text-muted-foreground ">
-                100 reviews
-              </span>
+              <span className="text-muted-foreground ">100 reviews</span>
             </div>
           </div>
         </div>
@@ -54,6 +45,7 @@ export default function ProductOverviewLayout() {
       </div>
       <div className="flex gap-2.5">
         <NavLink
+          end
           className={({ isActive }) =>
             cn(
               buttonVariants({ variant: 'outline' }),

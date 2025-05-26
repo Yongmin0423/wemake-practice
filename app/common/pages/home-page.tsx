@@ -1,23 +1,25 @@
-import type { MetaFunction } from "@remix-run/node";
-import { ProductCard } from "../../features/products/components/product-card";
-import { Button } from "../components/ui/button";
-import { Link } from "react-router";
-import { PostCard } from "../../features/community/components/post-card";
-import { IdeaCard } from "../../features/ideas/components/idea-card";
-import { JobCard } from "../../features/jobs/components/job-card";
-import { TeamCard } from "~/features/teams/components/team-card";
-import type { Route } from "./+types/home-page";
+import type { MetaFunction } from '@remix-run/node';
+import { ProductCard } from '../../features/products/components/product-card';
+import { Button } from '../components/ui/button';
+import { Link } from 'react-router';
+import { PostCard } from '../../features/community/components/post-card';
+import { IdeaCard } from '../../features/ideas/components/idea-card';
+import { JobCard } from '../../features/jobs/components/job-card';
+import { TeamCard } from '~/features/teams/components/team-card';
+import type { Route } from './+types/home-page';
 
 export const meta: MetaFunction = () => {
-  return [{
-    title: "Home | wemake",
-  }, {name: "description", content: "Home page of wemake"}]
-}
-
+  return [
+    {
+      title: 'Home | wemake',
+    },
+    { name: 'description', content: 'Home page of wemake' },
+  ];
+};
 
 export default function HomePage() {
   return (
-     <div className="px-20 space-y-40">
+    <div className="px-20 space-y-40">
       <div className="grid grid-cols-3 gap-4">
         <div>
           <h2 className="text-5xl font-bold leading-tight tracking-tight">
@@ -26,21 +28,25 @@ export default function HomePage() {
           <p className="text-xl font-light text-foreground">
             The best products made by our community today.
           </p>
-          <Button variant="link" asChild className="text-lg p-0">
+          <Button
+            variant="link"
+            asChild
+            className="text-lg p-0"
+          >
             <Link to="/products/leaderboards">Explore all products</Link>
           </Button>
         </div>
-          {Array.from({ length: 11 }).map((_, index) => (
+        {Array.from({ length: 11 }).map((_, index) => (
           <ProductCard
-                key={index}
-                productId={index.toString()}
-                productName={`Product Name ${index}`}
-                productDescription="Product Description"
-                commentsCount={0}
-                viewsCount={0}
-                votesCount={0}
-              />
-          ))}
+            key={index}
+            productId={index.toString()}
+            productName={`Product Name ${index}`}
+            productDescription="Product Description"
+            commentsCount={0}
+            viewsCount={0}
+            votesCount={0}
+          />
+        ))}
       </div>
       <div className="grid grid-cols-3 gap-4">
         <div>
@@ -50,16 +56,21 @@ export default function HomePage() {
           <p className="text-xl font-light text-foreground">
             The lastest discussions from our community.
           </p>
-          <Button variant="link" asChild className="text-lg p-0">
+          <Button
+            variant="link"
+            asChild
+            className="text-lg p-0"
+          >
             <Link to="/community">Explore all discussions</Link>
           </Button>
         </div>
-          {Array.from({ length: 11 }).map((_, index) => (
+        {Array.from({ length: 11 }).map((_, index) => (
           <PostCard
             key={index}
             postId={index.toString()}
             title={`Discussion Title ${index}`}
             author="Jane Doe"
+            authorAvatarUrl="https://github.com/inthetiger.png"
             category="Productivity"
             timeAgo="2 days ago"
           />
@@ -73,7 +84,11 @@ export default function HomePage() {
           <p className="text-xl font-light text-foreground">
             Find ideas for your next project.
           </p>
-          <Button variant="link" asChild className="text-lg p-0">
+          <Button
+            variant="link"
+            asChild
+            className="text-lg p-0"
+          >
             <Link to="/ideagpt">Explore all ideas &rarr;</Link>
           </Button>
         </div>
@@ -97,7 +112,11 @@ export default function HomePage() {
           <p className="text-xl font-light text-foreground">
             Find your dream Jobs
           </p>
-          <Button variant="link" asChild className="text-lg p-0">
+          <Button
+            variant="link"
+            asChild
+            className="text-lg p-0"
+          >
             <Link to="/jobs">Explore all jobs &rarr;</Link>
           </Button>
         </div>
@@ -115,7 +134,7 @@ export default function HomePage() {
           />
         ))}
       </div>
-       <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         <div>
           <h2 className="text-5xl font-bold leading-tight tracking-tight">
             Find a team mate
@@ -123,7 +142,11 @@ export default function HomePage() {
           <p className="text-xl font-light text-foreground">
             Join a team looking for a new member.
           </p>
-          <Button variant="link" asChild className="text-lg p-0">
+          <Button
+            variant="link"
+            asChild
+            className="text-lg p-0"
+          >
             <Link to="/teams">Explore all teams &rarr;</Link>
           </Button>
         </div>
@@ -134,9 +157,9 @@ export default function HomePage() {
             leaderUsername="lynn"
             leaderAvatarUrl="https://github.com/inthetiger.png"
             positions={[
-              "React Developer",
-              "Backend Developer",
-              "Product Manager",
+              'React Developer',
+              'Backend Developer',
+              'Product Manager',
             ]}
             projectDescription="a new social media platform"
           />
