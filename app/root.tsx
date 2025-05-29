@@ -58,7 +58,7 @@ export default function App() {
     <div className={pathname.includes('/auth/') ? '' : 'p-28'}>
       {pathname.includes('/auth') ? null : (
         <Navigation
-          isLoggedIn={false}
+          isLoggedIn={true}
           hasNotifications={true}
           hasMessages={true}
         />

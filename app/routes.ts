@@ -76,7 +76,7 @@ export default [
   ...prefix('/community', [
     index('features/community/pages/community-page.tsx'),
     route('/:postId', 'features/community/pages/post-page.tsx'),
-    route('/submit', 'features/community/pages/submit-post-page.tsx'),
+    route('/create', 'features/community/pages/submit-post-page.tsx'),
   ]),
   ...prefix('/teams', [
     index('features/teams/pages/teams-page.tsx'),
@@ -84,13 +84,15 @@ export default [
     route('/create', 'features/teams/pages/submit-team-page.tsx'),
   ]),
   ...prefix(`/my`, [
-    ...prefix('dashboard', [
-      index('features/users/pages/dashboard-page.tsx'),
-      route('/ideas', 'features/users/pages/dashboard-ideas-page.tsx'),
-      route(
-        '/products/:productId',
-        'features/users/pages/dashboard-product-page.tsx'
-      ),
+    layout('features/users/layouts/dashboard-layout.tsx', [
+      ...prefix('/dashboard', [
+        index('features/users/pages/dashboard-page.tsx'),
+        route('/ideas', 'features/users/pages/dashboard-ideas-page.tsx'),
+        route(
+          '/products/:productId',
+          'features/users/pages/dashboard-product-page.tsx'
+        ),
+      ]),
     ]),
     route('profile', 'features/users/pages/my-profile-page.tsx'),
     route('settings', 'features/users/pages/settings-page.tsx'),

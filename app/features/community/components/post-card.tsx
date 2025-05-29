@@ -13,13 +13,14 @@ import { Button } from '../../../common/components/ui/button';
 import { Link } from 'react-router';
 import { cn } from '~/lib/utils';
 import { ChevronUpIcon } from 'lucide-react';
+import { DateTime } from 'luxon';
 
 interface PostCardProps {
-  postId: string;
+  postId: number;
   title: string;
   author: string;
   category: string;
-  authorAvatarUrl: string;
+  authorAvatarUrl: string | null;
   timeAgo: string;
   expanded?: boolean;
   votesCount?: number;
@@ -30,7 +31,7 @@ export function PostCard({
   title,
   author,
   category,
-  authorAvatarUrl = 'https:github.com/apple.png',
+  authorAvatarUrl,
   timeAgo,
   expanded = false,
   votesCount = 0,
@@ -49,7 +50,7 @@ export function PostCard({
         <CardHeader className="flex flex-row items-center gap-2 w-full">
           <Avatar className="size-12">
             <AvatarFallback>{author[0]}</AvatarFallback>
-            <AvatarImage src={authorAvatarUrl} />
+            <AvatarImage src={authorAvatarUrl || ''} />
           </Avatar>
           <div className="space-y-2">
             <CardTitle>{title}</CardTitle>
@@ -57,7 +58,7 @@ export function PostCard({
               <span>{author}</span>
               <span>{category}</span>
               <span>•</span>
-              <span>{timeAgo}</span>
+              <span>{DateTime.fromISO(timeAgo).toRelative()}</span>
             </div>
           </div>
         </CardHeader>

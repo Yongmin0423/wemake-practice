@@ -1,16 +1,22 @@
-import { Card, CardHeader, CardFooter, CardContent, CardTitle } from "../../../common/components/ui/card"
-import { Button } from "../../../common/components/ui/button"
-import { Link } from "react-router"
-import { EyeIcon, DotIcon, HeartIcon, LockIcon } from "lucide-react"
-import { cn } from "~/lib/utils"
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardContent,
+  CardTitle,
+} from '../../../common/components/ui/card';
+import { Button } from '../../../common/components/ui/button';
+import { Link } from 'react-router';
+import { EyeIcon, DotIcon, HeartIcon, LockIcon } from 'lucide-react';
+import { cn } from '~/lib/utils';
 
 interface IdeaCardProps {
-  ideaId: string
-  title: string
-  views: number
-  timeAgo: string
-  likes: number
-  claimed: boolean
+  ideaId: string;
+  title: string;
+  views: number;
+  timeAgo: string;
+  likes: number;
+  claimed?: boolean;
 }
 
 export function IdeaCard({
@@ -26,7 +32,15 @@ export function IdeaCard({
       <CardHeader>
         <Link to={`/ideas/${ideaId}`}>
           <CardTitle className="text-xl">
-            <span className={ cn(claimed? "bg-muted-foreground selection:bg-muted-foreground text-muted-foreground": "")}>{title}</span>
+            <span
+              className={cn(
+                claimed
+                  ? 'bg-muted-foreground selection:bg-muted-foreground text-muted-foreground'
+                  : ''
+              )}
+            >
+              {title}
+            </span>
           </CardTitle>
         </Link>
       </CardHeader>
@@ -43,13 +57,24 @@ export function IdeaCard({
           <HeartIcon className="size-4" />
           <span>{likes}</span>
         </Button>
-       {!claimed ?<Button variant="default" asChild>
-          <Link to={`/ideas/${ideaId}/claim`}>Claim idea now &rarr;</Link>
-        </Button>: <Button variant="outline" disabled className="cursor-not-allowed">
-          <LockIcon className="size-4" />
-          Claimed
-        </Button>}
+        {!claimed ? (
+          <Button
+            variant="default"
+            asChild
+          >
+            <Link to={`/ideas/${ideaId}/claim`}>Claim idea now &rarr;</Link>
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            disabled
+            className="cursor-not-allowed"
+          >
+            <LockIcon className="size-4" />
+            Claimed
+          </Button>
+        )}
       </CardFooter>
     </Card>
-  )
+  );
 }

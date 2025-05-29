@@ -1,0 +1,69 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1748331138438,
+      "tag": "0000_elite_komodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748335783001,
+      "tag": "0001_messy_vermin",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748337362749,
+      "tag": "0002_dashing_blindfold",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1748337945673,
+      "tag": "0003_aspiring_green_goblin",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1748340961323,
+      "tag": "0004_chunky_deathbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1748342802376,
+      "tag": "0005_wealthy_star_brand",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1748345753056,
+      "tag": "0006_clear_spyke",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1748502334946,
+      "tag": "0007_chunky_zeigeist",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1748502608515,
+      "tag": "0008_sweet_cardiac",
+      "breakpoints": true
+    }
+  ]
+}
