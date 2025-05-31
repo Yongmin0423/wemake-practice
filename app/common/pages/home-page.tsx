@@ -9,6 +9,8 @@ import { TeamCard } from '~/features/teams/components/team-card';
 import type { Route } from './+types/home-page';
 import { getProductsByDateRange } from '~/features/products/queries';
 import { DateTime } from 'luxon';
+import { getPosts } from '~/features/community/queries';
+import { getGptIdeas } from '~/features/ideas/queries';
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,7 +27,12 @@ export const loader = async () => {
     endDate: DateTime.now().endOf('day'),
     limit: 7,
   });
-  return { products };
+  const posts = await getPosts({
+    limit: 7,
+    sorting: 'newest',
+  });
+  const ideas = await getGptIdeas({ limit: 7 });
+  return { products, posts, ideas };
 };
 
 export default function HomePage({ loaderData }: Route.ComponentProps) {
@@ -71,15 +78,16 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
             <Link to="/community">Explore all discussions &rarr;</Link>
           </Button>
         </div>
-        {Array.from({ length: 11 }).map((_, index) => (
+        {loaderData.posts.map((post) => (
           <PostCard
-            key={index}
-            postId={index}
-            title={`Discussion Title ${index}`}
-            author="Jane Doe"
-            authorAvatarUrl="https://github.com/inthetiger.png"
-            category="Productivity"
-            timeAgo="2 days ago"
+            key={post.post_id}
+            postId={post.post_id}
+            title={post.title}
+            author={post.author}
+            authorAvatarUrl={post.author_avatar}
+            category={post.topic}
+            timeAgo={post.created_at}
+            votesCount={post.upvotes}
           />
         ))}
       </div>
@@ -95,15 +103,15 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
             <Link to="/ideagpt">Explore all ideas &rarr;</Link>
           </Button>
         </div>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {loaderData.ideas.map((idea) => (
           <IdeaCard
-            key={index}
-            ideaId={index.toString()}
-            title="A startup that create an AI-powered generated personal trainer, delivering customized fitness recommendations and tracking of progress using a mobile app to track workouts and progress as well as a website to manage the business."
-            views={100}
-            timeAgo="12 hours ago"
-            likes={100}
-            claimed={index % 2 === 0}
+            key={idea.gpt_idea_id}
+            ideaId={idea.gpt_idea_id}
+            title={idea.idea}
+            views={idea.views}
+            timeAgo={idea.created_at}
+            likes={idea.likes}
+            claimed={idea.is_claimed}
           />
         ))}
       </div>

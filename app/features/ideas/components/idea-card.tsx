@@ -9,9 +9,10 @@ import { Button } from '../../../common/components/ui/button';
 import { Link } from 'react-router';
 import { EyeIcon, DotIcon, HeartIcon, LockIcon } from 'lucide-react';
 import { cn } from '~/lib/utils';
+import { DateTime } from 'luxon';
 
 interface IdeaCardProps {
-  ideaId: string;
+  ideaId: number;
   title: string;
   views: number;
   timeAgo: string;
@@ -19,14 +20,7 @@ interface IdeaCardProps {
   claimed?: boolean;
 }
 
-export function IdeaCard({
-  ideaId,
-  title,
-  views,
-  timeAgo,
-  likes,
-  claimed,
-}: IdeaCardProps) {
+export function IdeaCard({ ideaId, title, views, timeAgo, likes, claimed }: IdeaCardProps) {
   return (
     <Card className="bg-transparent hover:bg-card/50 transition-colors">
       <CardHeader>
@@ -50,7 +44,7 @@ export function IdeaCard({
           <span>{views}</span>
         </div>
         <DotIcon className="size-2" />
-        <span>{timeAgo}</span>
+        <span>{DateTime.fromISO(timeAgo).toRelative()}</span>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
         <Button variant="outline">
