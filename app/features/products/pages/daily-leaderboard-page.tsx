@@ -1,67 +1,80 @@
-import { DateTime } from "luxon";
-import type { Route } from "./+types/daily-leaderboard-page";
-import { data, isRouteErrorResponse, Link } from "react-router";
-import { z } from "zod";
-import { Hero } from "~/common/components/hero";
-import { Button } from "~/common/components/ui/button";
-import { ProductCard } from "../components/product-card";
-import ProductPagination from "~/common/components/product-pagination";
+import { DateTime } from 'luxon';
+import type { Route } from './+types/daily-leaderboard-page';
+import { data, isRouteErrorResponse, Link } from 'react-router';
+import { z } from 'zod';
+import { Hero } from '~/common/components/hero';
+import { Button } from '~/common/components/ui/button';
+import { ProductCard } from '../components/product-card';
+import ProductPagination from '~/common/components/product-pagination';
+import { getProductsByDateRange, getProductPagesByDateRange } from '../queries';
+import { PAGE_SIZE } from '../constants';
 
 const paramsSchema = z.object({
   year: z.coerce.number(),
   month: z.coerce.number(),
-  day: z.coerce.number()
-})
+  day: z.coerce.number(),
+});
 
 export const meta: Route.MetaFunction = ({ params }) => {
   const date = DateTime.fromObject({
     year: Number(params.year),
     month: Number(params.month),
-    day: Number(params.day)
-  }).setZone("Asia/Seoul").setLocale("ko")
-  return [
-    {title: `The best products of ${date.toLocaleString(DateTime.DATE_MED)} | wemake`}
-  ]
-}
+    day: Number(params.day),
+  })
+    .setZone('Asia/Seoul')
+    .setLocale('ko');
+  return [{ title: `The best products of ${date.toLocaleString(DateTime.DATE_MED)} | wemake` }];
+};
 
-export function loader({ params }: Route.LoaderArgs) {
-  const { success, data:parsedData } = paramsSchema.safeParse(params);
-  if(!success) {
-    throw data({error_code: "invalid_date", error_message: "Invalid date"}, {status: 400})
+export async function loader({ params, request }: Route.LoaderArgs) {
+  const { success, data: parsedData } = paramsSchema.safeParse(params);
+  if (!success) {
+    throw data({ error_code: 'invalid_date', error_message: 'Invalid date' }, { status: 400 });
   }
-  const date = DateTime.fromObject(parsedData).setZone("Asia/Seoul")
+  const date = DateTime.fromObject(parsedData).setZone('Asia/Seoul');
   if (!date.isValid) {
-    throw data({error_code: "invalid_date", error_message: "Invalid date"}, {status: 400})
+    throw data({ error_code: 'invalid_date', error_message: 'Invalid date' }, { status: 400 });
   }
-  const today = DateTime.now().setZone("Asia/Seoul").startOf("day")
-  if(date > today) {
-    throw data({error_code: "future_date", error_message: "Future_date"}, {status: 400})
+  const today = DateTime.now().setZone('Asia/Seoul').startOf('day');
+  if (date > today) {
+    throw data({ error_code: 'future_date', error_message: 'Future_date' }, { status: 400 });
   }
+  const url = new URL(request.url);
+  const products = await getProductsByDateRange({
+    startDate: date.startOf('day'),
+    endDate: date.endOf('day'),
+    limit: PAGE_SIZE,
+    page: Number(url.searchParams.get('page') || 1),
+  });
+  const totalPages = await getProductPagesByDateRange({
+    startDate: date.startOf('day'),
+    endDate: date.endOf('day'),
+  });
+
   return {
-    ...parsedData
-  }
+    products,
+    totalPages,
+    ...parsedData,
+  };
 }
 
-export default function DailyLeaderboardPage({
-  loaderData,
-}: Route.ComponentProps) {
- const urlDate = DateTime.fromObject({
+export default function DailyLeaderboardPage({ loaderData }: Route.ComponentProps) {
+  const urlDate = DateTime.fromObject({
     year: loaderData.year,
     month: loaderData.month,
     day: loaderData.day,
   });
   const previousDay = urlDate.minus({ days: 1 });
   const nextDay = urlDate.plus({ days: 1 });
-  const isToday = urlDate.equals(DateTime.now().startOf("day"));
+  const isToday = urlDate.equals(DateTime.now().startOf('day'));
   return (
     <div className="space-y-10">
-      <Hero
-        title={`The best products of ${urlDate.toLocaleString(
-          DateTime.DATE_MED
-        )}`}
-      />
+      <Hero title={`The best products of ${urlDate.toLocaleString(DateTime.DATE_MED)}`} />
       <div className="flex items-center justify-center gap-2">
-        <Button variant="secondary" asChild>
+        <Button
+          variant="secondary"
+          asChild
+        >
           <Link
             to={`/products/leaderboards/daily/${previousDay.year}/${previousDay.month}/${previousDay.day}`}
           >
@@ -69,7 +82,10 @@ export default function DailyLeaderboardPage({
           </Link>
         </Button>
         {!isToday ? (
-          <Button variant="secondary" asChild>
+          <Button
+            variant="secondary"
+            asChild
+          >
             <Link
               to={`/products/leaderboards/daily/${nextDay.year}/${nextDay.month}/${nextDay.day}`}
             >
@@ -79,15 +95,15 @@ export default function DailyLeaderboardPage({
         ) : null}
       </div>
       <div className="space-y-5 w-full max-w-screen-md mx-auto">
-        {Array.from({ length: 11 }).map((_, index) => (
+        {loaderData.products.map((product, index) => (
           <ProductCard
             key={`productId-${index}`}
-            productId={`productId-${index}`}
-            productName="Product Name"
-            productDescription="Product Description"
-            commentsCount={12}
-            viewsCount={12}
-            votesCount={120}
+            productId={product.product_id.toString()}
+            productName={product.name}
+            productDescription={product.description}
+            commentsCount={product.reviews}
+            viewsCount={product.views}
+            votesCount={product.upvotes}
           />
         ))}
       </div>
@@ -96,13 +112,16 @@ export default function DailyLeaderboardPage({
   );
 }
 
-
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  if(isRouteErrorResponse(error)) {
-    return <div>{error.data.error_message} / {error.data.error_code}</div>
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        {error.data.error_message} / {error.data.error_code}
+      </div>
+    );
   }
   if (error instanceof Error) {
-    return <div>{error.message}</div>
-   }
-  return <div>Unknown error</div>
+    return <div>{error.message}</div>;
+  }
+  return <div>Unknown error</div>;
 }

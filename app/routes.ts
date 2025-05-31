@@ -1,37 +1,18 @@
-import {
-  type RouteConfig,
-  index,
-  layout,
-  prefix,
-  route,
-} from '@react-router/dev/routes';
+import { type RouteConfig, index, layout, prefix, route } from '@react-router/dev/routes';
 
 export default [
   index('common/pages/home-page.tsx'),
   ...prefix('products', [
     index('features/products/pages/products-page.tsx'),
-    ...prefix('leaderboards', [
-      index('features/products/pages/leaderboard-page.tsx'),
-      route(
-        '/yearly/:year',
-        'features/products/pages/yearly-leaderboard-page.tsx'
-      ),
-      route(
-        '/monthly/:year/:month',
-        'features/products/pages/monthly-leaderboard-page.tsx'
-      ),
-      route(
-        '/daily/:year/:month/:day',
-        'features/products/pages/daily-leaderboard-page.tsx'
-      ),
-      route(
-        '/weekly/:year/:week',
-        'features/products/pages/weekly-leaderboard-page.tsx'
-      ),
-      route(
-        '/:period',
-        'features/products/pages/leaderboard-redirection-page.tsx'
-      ),
+    layout('features/products/layouts/leaderboard-layout.tsx', [
+      ...prefix('leaderboards', [
+        index('features/products/pages/leaderboard-page.tsx'),
+        route('/yearly/:year', 'features/products/pages/yearly-leaderboard-page.tsx'),
+        route('/monthly/:year/:month', 'features/products/pages/monthly-leaderboard-page.tsx'),
+        route('/daily/:year/:month/:day', 'features/products/pages/daily-leaderboard-page.tsx'),
+        route('/weekly/:year/:week', 'features/products/pages/weekly-leaderboard-page.tsx'),
+        route('/:period', 'features/products/pages/leaderboards-redirection-page.tsx'),
+      ]),
     ]),
     ...prefix('categories', [
       index('features/products/pages/categories-page.tsx'),
@@ -44,9 +25,7 @@ export default [
       index('features/products/pages/product-redirect-page.tsx'),
       layout('features/products/layouts/product-overview-layout.tsx', [
         route('/overview', 'features/products/pages/product-overview-page.tsx'),
-        ...prefix('/reviews', [
-          index('features/products/pages/product-reviews-page.tsx'),
-        ]),
+        ...prefix('/reviews', [index('features/products/pages/product-reviews-page.tsx')]),
       ]),
     ]),
   ]),
@@ -88,10 +67,7 @@ export default [
       ...prefix('/dashboard', [
         index('features/users/pages/dashboard-page.tsx'),
         route('/ideas', 'features/users/pages/dashboard-ideas-page.tsx'),
-        route(
-          '/products/:productId',
-          'features/users/pages/dashboard-product-page.tsx'
-        ),
+        route('/products/:productId', 'features/users/pages/dashboard-product-page.tsx'),
       ]),
     ]),
     route('profile', 'features/users/pages/my-profile-page.tsx'),

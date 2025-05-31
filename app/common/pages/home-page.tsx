@@ -7,6 +7,8 @@ import { IdeaCard } from '../../features/ideas/components/idea-card';
 import { JobCard } from '../../features/jobs/components/job-card';
 import { TeamCard } from '~/features/teams/components/team-card';
 import type { Route } from './+types/home-page';
+import { getProductsByDateRange } from '~/features/products/queries';
+import { DateTime } from 'luxon';
 
 export const meta: MetaFunction = () => {
   return [
@@ -17,14 +19,21 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function HomePage() {
+export const loader = async () => {
+  const products = await getProductsByDateRange({
+    startDate: DateTime.now().startOf('day'),
+    endDate: DateTime.now().endOf('day'),
+    limit: 7,
+  });
+  return { products };
+};
+
+export default function HomePage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="px-20 space-y-40">
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Today's Products
-          </h2>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">Today's Products</h2>
           <p className="text-xl font-light text-foreground">
             The best products made by our community today.
           </p>
@@ -33,26 +42,24 @@ export default function HomePage() {
             asChild
             className="text-lg p-0"
           >
-            <Link to="/products/leaderboards">Explore all products</Link>
+            <Link to="/products/leaderboards">Explore all products &rarr;</Link>
           </Button>
         </div>
-        {Array.from({ length: 11 }).map((_, index) => (
+        {loaderData.products.map((product) => (
           <ProductCard
-            key={index}
-            productId={index.toString()}
-            productName={`Product Name ${index}`}
-            productDescription="Product Description"
-            commentsCount={0}
-            viewsCount={0}
-            votesCount={0}
+            key={product.product_id}
+            productId={product.product_id.toString()}
+            productName={product.name}
+            productDescription={product.description}
+            commentsCount={product.reviews}
+            viewsCount={product.views}
+            votesCount={product.upvotes}
           />
         ))}
       </div>
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Latest Discussions
-          </h2>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">Latest Discussions</h2>
           <p className="text-xl font-light text-foreground">
             The lastest discussions from our community.
           </p>
@@ -61,13 +68,13 @@ export default function HomePage() {
             asChild
             className="text-lg p-0"
           >
-            <Link to="/community">Explore all discussions</Link>
+            <Link to="/community">Explore all discussions &rarr;</Link>
           </Button>
         </div>
         {Array.from({ length: 11 }).map((_, index) => (
           <PostCard
             key={index}
-            postId={index.toString()}
+            postId={index}
             title={`Discussion Title ${index}`}
             author="Jane Doe"
             authorAvatarUrl="https://github.com/inthetiger.png"
@@ -78,12 +85,8 @@ export default function HomePage() {
       </div>
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            IdeasGPT
-          </h2>
-          <p className="text-xl font-light text-foreground">
-            Find ideas for your next project.
-          </p>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">IdeasGPT</h2>
+          <p className="text-xl font-light text-foreground">Find ideas for your next project.</p>
           <Button
             variant="link"
             asChild
@@ -106,12 +109,8 @@ export default function HomePage() {
       </div>
       <div className="grid grid-cols-4 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Lastest Jobs
-          </h2>
-          <p className="text-xl font-light text-foreground">
-            Find your dream Jobs
-          </p>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">Lastest Jobs</h2>
+          <p className="text-xl font-light text-foreground">Find your dream Jobs</p>
           <Button
             variant="link"
             asChild
@@ -136,9 +135,7 @@ export default function HomePage() {
       </div>
       <div className="grid grid-cols-4 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Find a team mate
-          </h2>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">Find a team mate</h2>
           <p className="text-xl font-light text-foreground">
             Join a team looking for a new member.
           </p>
@@ -156,11 +153,7 @@ export default function HomePage() {
             id={`teamId-${index}`}
             leaderUsername="lynn"
             leaderAvatarUrl="https://github.com/inthetiger.png"
-            positions={[
-              'React Developer',
-              'Backend Developer',
-              'Product Manager',
-            ]}
+            positions={['React Developer', 'Backend Developer', 'Product Manager']}
             projectDescription="a new social media platform"
           />
         ))}

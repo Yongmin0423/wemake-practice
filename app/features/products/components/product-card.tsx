@@ -1,15 +1,21 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "../../../common/components/ui/card"
-import { Button } from "../../../common/components/ui/button"
-import { MessageCircleIcon, EyeIcon, ChevronUp } from "lucide-react"
-import { Link } from "react-router"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from '../../../common/components/ui/card';
+import { Button } from '../../../common/components/ui/button';
+import { MessageCircleIcon, EyeIcon, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router';
 
 interface ProductCardProps {
-  productId: string
-  productName: string
-  productDescription: string
-  commentsCount: number
-  viewsCount: number
-  votesCount: number
+  productId: string;
+  productName: string;
+  productDescription: string;
+  commentsCount: string;
+  viewsCount: string;
+  votesCount: string;
 }
 
 export function ProductCard({
@@ -42,12 +48,15 @@ export function ProductCard({
           </div>
         </CardHeader>
         <CardFooter className="py-0">
-          <Button variant="outline" className="flex h-14">
+          <Button
+            variant="outline"
+            className="flex h-14"
+          >
             <ChevronUp className="size-4 shrink-0" />
             <span>{votesCount}</span>
           </Button>
         </CardFooter>
       </Card>
     </Link>
-  )
+  );
 }
