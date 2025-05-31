@@ -1,18 +1,25 @@
-import { Card, CardHeader, CardFooter, CardContent, CardTitle } from "../../../common/components/ui/card"
-import { Button } from "../../../common/components/ui/button"
-import { Badge } from "../../../common/components/ui/badge"
-import { Link } from "react-router"
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardContent,
+  CardTitle,
+} from '../../../common/components/ui/card';
+import { Button } from '../../../common/components/ui/button';
+import { Badge } from '../../../common/components/ui/badge';
+import { Link } from 'react-router';
+import { DateTime } from 'luxon';
 
 interface JobCardProps {
-  jobId: string
-  companyName: string
-  companyLogo: string
-  timeAgo: string
-  title: string
-  type: string
-  location: string
-  salary: string
-  city: string
+  jobId: number;
+  companyName: string;
+  companyLogo: string;
+  timeAgo: string;
+  title: string;
+  type: string;
+  location: string;
+  salary: string;
+  city: string;
 }
 
 export function JobCard({
@@ -38,27 +45,40 @@ export function JobCard({
             />
             <div className="space-x-2">
               <span className="text-accent-foreground">{companyName}</span>
-              <span className="text-xs text-muted-foreground">{timeAgo}</span>
+              <span className="text-xs text-muted-foreground">
+                {DateTime.fromISO(timeAgo).toRelative()}
+              </span>
             </div>
           </div>
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <Badge variant="outline">{type}</Badge>
-          <Badge variant="outline">{location}</Badge>
+          <Badge
+            variant="outline"
+            className="capitalize"
+          >
+            {type}
+          </Badge>
+          <Badge
+            variant="outline"
+            className="capitalize"
+          >
+            {location}
+          </Badge>
         </CardContent>
         <CardFooter className="flex justify-between">
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-muted-foreground">
-              {salary}
-            </span>
-            <span className="text-sm text-muted-foreground">
-              {city}
-            </span>
+            <span className="text-sm font-medium text-muted-foreground">{salary}</span>
+            <span className="text-sm text-muted-foreground">{city}</span>
           </div>
-          <Button variant="secondary" size="sm">Apply now</Button>
+          <Button
+            variant="secondary"
+            size="sm"
+          >
+            Apply now
+          </Button>
         </CardFooter>
       </Card>
     </Link>
-  )
+  );
 }
