@@ -61,7 +61,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
             key={product.product_id}
             productId={product.product_id.toString()}
             productName={product.name}
-            productDescription={product.description}
+            productDescription={product.tagline}
             commentsCount={product.reviews}
             viewsCount={product.views}
             votesCount={product.upvotes}

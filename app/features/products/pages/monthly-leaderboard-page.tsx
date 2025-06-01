@@ -131,7 +131,7 @@ export default function MonthlyLeaderboardPage({ loaderData }: Route.ComponentPr
             key={`productId-${index}`}
             productId={product.product_id.toString()}
             productName={product.name}
-            productDescription={product.description}
+            productDescription={product.tagline}
             commentsCount={product.reviews}
             viewsCount={product.views}
             votesCount={product.upvotes}

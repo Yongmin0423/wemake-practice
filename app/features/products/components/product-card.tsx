@@ -10,7 +10,7 @@ import { MessageCircleIcon, EyeIcon, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router';
 
 interface ProductCardProps {
-  productId: string;
+  productId: number | string;
   productName: string;
   productDescription: string;
   commentsCount: string;

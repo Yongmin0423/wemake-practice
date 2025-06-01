@@ -123,7 +123,7 @@ export default function YearlyLeaderboardPage({ loaderData }: Route.ComponentPro
             key={`productId-${index}`}
             productId={product.product_id.toString()}
             productName={product.name}
-            productDescription={product.description}
+            productDescription={product.tagline}
             commentsCount={product.reviews}
             viewsCount={product.views}
             votesCount={product.upvotes}

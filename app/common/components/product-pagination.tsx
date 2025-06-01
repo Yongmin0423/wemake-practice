@@ -10,7 +10,7 @@ import {
 } from './ui/pagination';
 
 type ProductPaginationProps = {
-  totalPages: number;
+  totalPages: number | undefined;
 };
 
 export default function ProductPagination({ totalPages }: ProductPaginationProps) {
