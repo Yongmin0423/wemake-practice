@@ -1,22 +1,13 @@
-import { Link } from "react-router";
-import {
-  Card,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/common/components/ui/card";
-import { Badge } from "~/common/components/ui/badge";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "~/common/components/ui/avatar";
-import { Button } from "~/common/components/ui/button";
+import { Link } from 'react-router';
+import { Card, CardFooter, CardHeader, CardTitle } from '~/common/components/ui/card';
+import { Badge } from '~/common/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '~/common/components/ui/avatar';
+import { Button } from '~/common/components/ui/button';
 
 interface TeamCardProps {
-  id: string;
+  id: number;
   leaderUsername: string;
-  leaderAvatarUrl: string;
+  leaderAvatarUrl: string | null;
   positions: string[];
   projectDescription: string;
 }
@@ -29,23 +20,29 @@ export function TeamCard({
   projectDescription,
 }: TeamCardProps) {
   return (
-    <Link to={`/teams/${id}`}>
-      <Card className="bg-transparent hover:bg-card/50 transition-colors">
+    <Link
+      to={`/teams/${id}`}
+      className="block"
+    >
+      <Card className="bg-transparent flex flex-col justify-between h-full hover:bg-card/50 transition-colors ">
         <CardHeader className="flex flex-row items-center">
           <CardTitle className="text-base leading-loose">
             <Badge
-              variant={"secondary"}
+              variant={'secondary'}
               className="inline-flex shadow-sm items-center text-base"
             >
               <span>@{leaderUsername}</span>
               <Avatar className="size-5">
                 <AvatarFallback>{leaderUsername[0]}</AvatarFallback>
-                <AvatarImage src={leaderAvatarUrl} />
+                {leaderAvatarUrl && <AvatarImage src={leaderAvatarUrl} />}
               </Avatar>
             </Badge>
             <span> is looking for </span>
             {positions.map((position, index) => (
-              <Badge key={index} className="text-base">
+              <Badge
+                key={index}
+                className="text-base"
+              >
                 {position}
               </Badge>
             ))}
@@ -54,7 +51,7 @@ export function TeamCard({
           </CardTitle>
         </CardHeader>
         <CardFooter className="justify-end">
-          <Button variant={"link"}>Join team &rarr;</Button>
+          <Button variant={'link'}>Join team &rarr;</Button>
         </CardFooter>
       </Card>
     </Link>

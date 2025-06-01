@@ -19,9 +19,9 @@ export const meta: Route.MetaFunction = () => {
 };
 
 const searchParamsSchema = z.object({
-  type: z.enum(JOB_TYPES.map((type) => type.value) as [string, ...string[]]),
-  location: z.enum(LOCATION_TYPES.map((type) => type.value) as [string, ...string[]]),
-  salary: z.enum(SALARY_RANGE.map((range) => range) as [string, ...string[]]),
+  type: z.enum(JOB_TYPES.map((type) => type.value) as [string, ...string[]]).optional(),
+  location: z.enum(LOCATION_TYPES.map((type) => type.value) as [string, ...string[]]).optional(),
+  salary: z.enum(SALARY_RANGE).optional(),
 });
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
@@ -30,7 +30,13 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
     Object.fromEntries(url.searchParams)
   );
   if (!success) {
-    throw data({ error_code: 'invalid_params', error_message: 'Invalid params' }, { status: 400 });
+    throw data(
+      {
+        error_code: 'invalid_search_params',
+        message: 'Invalid search params',
+      },
+      { status: 400 }
+    );
   }
   const jobs = await getJobs({
     limit: 40,

@@ -78,6 +78,20 @@
       "when": 1748679179072,
       "tag": "0010_elite_quicksilver",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1748749400479,
+      "tag": "0011_wet_enchantress",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1748749468552,
+      "tag": "0012_careful_vertigo",
+      "breakpoints": true
     }
   ]
 }
